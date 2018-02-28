@@ -3,7 +3,7 @@
 namespace DruidFamiliar\ResponseHandler;
 
 use DruidFamiliar\Interfaces\IDruidQueryResponseHandler;
-use Guzzle\Http\Message\Response;
+use GuzzleHttp\Psr7\Response;
 
 /**
  * Class DoNothingResponseHandler simply returns a response unchanged.

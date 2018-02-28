@@ -7,9 +7,10 @@ use DruidFamiliar\Interfaces\IDruidQueryExecutor;
 use DruidFamiliar\Interfaces\IDruidQueryGenerator;
 use DruidFamiliar\Interfaces\IDruidQueryParameters;
 use DruidFamiliar\Interfaces\IDruidQueryResponseHandler;
-use Guzzle\Http\Message\Response;
-use Guzzle\Http\Client;
-use Guzzle\Http\Exception\CurlException;
+use GuzzleHttp\Psr7\Response;
+use GuzzleHttp\Psr7\Request;
+use GuzzleHttp\Client;
+use GuzzleHttp\Exception\RequestException;
 
 /**
  * Class JSONDruidNodeDruidQueryExecutor
@@ -70,20 +71,17 @@ class JSONDruidNodeDruidQueryExecutor implements IDruidQueryExecutor
     /**
      * @param $query
      *
-     * @return \Guzzle\Http\Message\RequestInterface
+     * @return \Psr\Http\Message\RequestInterface
      */
     public function createRequest($query)
     {
-        $client = new Client();
-
-        $request = $client->post($this->getBaseUrl(), array("content-type" => "application/json"), json_encode($query));
-
-        return $request;
+        return new Request('POST', $this->getBaseUrl(), array('content-type' => 'application/json'), json_encode($query));
     }
-
 
     public function executeQuery(IDruidQueryGenerator $queryGenerator, IDruidQueryParameters $params, IDruidQueryResponseHandler $responseHandler)
     {
+        $client = new Client();
+
         $params->validate();
 
         $generatedQuery = $queryGenerator->generateQuery($params);
@@ -94,11 +92,11 @@ class JSONDruidNodeDruidQueryExecutor implements IDruidQueryExecutor
         // Send the request and parse the JSON response into an array
         try
         {
-            $response = $request->send();
+            $response = $client->send($request);
         }
-        catch(CurlException $curlException)
+        catch(RequestException $requestException)
         {
-            throw new $curlException;
+            throw new $requestException;
         }
 
         $data = $this->parseResponse($response);
@@ -115,7 +113,7 @@ class JSONDruidNodeDruidQueryExecutor implements IDruidQueryExecutor
      */
     protected function parseResponse($rawResponse)
     {
-        $formattedResponse = $rawResponse->json();
+        $formattedResponse = json_decode((string) $rawResponse->getBody(), true);
 
         return $formattedResponse;
     }

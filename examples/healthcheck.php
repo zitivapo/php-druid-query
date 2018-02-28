@@ -46,10 +46,10 @@ try
     }
 
 }
-catch ( Guzzle\Common\Exception\InvalidArgumentException $e ) {
+catch ( \InvalidArgumentException $e ) {
 
 }
-catch ( Guzzle\Http\Exception\CurlException $e ) {
+catch ( GuzzleHttp\Exception\RequestException $e ) {
     echo "Problem encountered :(\n";
     echo "Am I really pointed at a Druid broker node?\n";
 }
@@ -72,5 +72,3 @@ catch ( \Exception $e )
     }
 
 }
-
-

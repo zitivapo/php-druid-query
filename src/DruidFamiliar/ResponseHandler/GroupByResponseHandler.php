@@ -4,7 +4,7 @@ namespace DruidFamiliar\ResponseHandler;
 
 use DruidFamiliar\Interfaces\IDruidQueryResponseHandler;
 use DruidFamiliar\Response\GroupByResponse;
-use Guzzle\Http\Message\Response;
+use GuzzleHttp\Psr7\Response;
 
 /**
  * Class GroupByResponseHandler
@@ -27,7 +27,7 @@ class GroupByResponseHandler implements IDruidQueryResponseHandler
      */
     public function handleResponse($response)
     {
-        $response = $response->json();
+        $response = json_decode((string) $response->getBody(), true);
 
         $responseObj = new GroupByResponse();
         $responseObj->setData($response);

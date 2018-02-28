@@ -3,7 +3,7 @@
 namespace DruidFamiliar\Test\ResponseHandler;
 
 use DruidFamiliar\ResponseHandler\GroupByResponseHandler;
-use Guzzle\Http\Message\Response;
+use GuzzleHttp\Psr7\Response;
 use PHPUnit_Framework_TestCase;
 
 /**
@@ -72,4 +72,4 @@ JSONRESPONSE;
         $this->assertEquals('10', $record['event']['referral_id']); //Is the referral id the same as in the JSON object???
         $this->assertEquals('3', $record['event']['group']); //Is the group the same as in the JSON object???
     }
-} 
+}

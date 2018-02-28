@@ -2,7 +2,7 @@
 
 namespace DruidFamiliar\Interfaces;
 
-use Guzzle\Http\Message\Response;
+use GuzzleHttp\Psr7\Response;
 
 /**
  * Interface IDruidQueryResponseHandler handles reception of Druid's response to an executed Druid query.

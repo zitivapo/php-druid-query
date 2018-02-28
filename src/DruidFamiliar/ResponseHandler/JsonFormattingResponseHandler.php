@@ -3,7 +3,7 @@
 namespace DruidFamiliar\ResponseHandler;
 
 use DruidFamiliar\Interfaces\IDruidQueryResponseHandler;
-use Guzzle\Http\Message\Response;
+use GuzzleHttp\Psr7\Response;
 
 /**
  * Class JsonFormattingResponseHandler decodes a JSON response and returns the result.
@@ -23,7 +23,7 @@ class JsonFormattingResponseHandler implements IDruidQueryResponseHandler
      */
     public function handleResponse($response)
     {
-        $response = $response->json();
+        $response = json_decode((string) $response->getBody(), true);
         return $response;
     }
 }

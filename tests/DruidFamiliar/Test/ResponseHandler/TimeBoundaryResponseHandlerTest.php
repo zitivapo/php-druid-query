@@ -3,7 +3,7 @@
 namespace DruidFamiliar\Test\ResponseHandler;
 
 use DruidFamiliar\ResponseHandler\TimeBoundaryResponseHandler;
-use Guzzle\Http\Message\Response;
+use GuzzleHttp\Psr7\Response;
 use PHPUnit_Framework_TestCase;
 
 class TimeBoundaryResponseHandlerTest extends PHPUnit_Framework_TestCase

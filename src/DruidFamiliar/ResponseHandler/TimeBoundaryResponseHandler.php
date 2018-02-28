@@ -4,7 +4,7 @@ namespace DruidFamiliar\ResponseHandler;
 
 use DruidFamiliar\Interfaces\IDruidQueryResponseHandler;
 use DruidFamiliar\Response\TimeBoundaryResponse;
-use Guzzle\Http\Message\Response;
+use GuzzleHttp\Psr7\Response;
 use Exception;
 
 /**
@@ -26,7 +26,7 @@ class TimeBoundaryResponseHandler implements IDruidQueryResponseHandler
      */
     public function handleResponse($response)
     {
-        $response = $response->json();
+        $response = json_decode((string) $response->getBody(), true);
 
         if(empty($response))
         {
