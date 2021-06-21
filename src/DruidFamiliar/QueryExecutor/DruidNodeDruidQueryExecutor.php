@@ -2,7 +2,6 @@
 
 namespace DruidFamiliar\QueryExecutor;
 
-use DruidFamiliar\Exception;
 use DruidFamiliar\Interfaces\IDruidQueryExecutor;
 use DruidFamiliar\Interfaces\IDruidQueryGenerator;
 use DruidFamiliar\Interfaces\IDruidQueryParameters;
@@ -132,7 +131,7 @@ class DruidNodeDruidQueryExecutor implements IDruidQueryExecutor
         }
         catch (RequestException $requestException)
         {
-            throw new $requestException;
+            throw new $requestException('Druid API bad request', $request, new Response());
         }
 
         $formattedResponse = $responseHandler->handleResponse($response);
